@@ -7,35 +7,20 @@ function love.load()
     love.window.setMode(40 * 15, 30 * 15);
     love.window.setTitle("Better Snake");
     
-    icon = love.graphics.newImage("images/snake_icon.png");
-    print(icon);
-    love.window.setIcon(icon:getData());
+    icon = love.image.newImageData("images/snake_icon.jpg");
+    love.window.setIcon(icon);
 
     gui.best_score = 0;
     cellSize = 15;
 
-    function reset()
         snakeSegments = {
             {x = 3, y = 4},
             {x = 2, y = 4},
             {x = 1, y = 4},
         }
-        
-        directionQueue = {'right'} -- the starting movement is right.
-        snakeAlive = true;
-        gui.score = 0;
-        timer = 0;
-        gui.timer = 0;
-        gameTimer = 0;
-        
-        gui.score = 0; -- resetting the score
-        
-    end
 
-    reset()
-
-    function moveFood()
-        local possibleFoodPositions = {}
+        function moveFood()
+    local possibleFoodPositions = {}
 
         for foodX = 1, gridXCount do
             for foodY = 1, gridYCount do
@@ -62,7 +47,27 @@ function love.load()
         foodPosition = possibleFoodPositions[love.math.random(1, #possibleFoodPositions)]
     end
 
-    moveFood()
+    moveFood();
+
+    function reset()
+        snakeSegments = {
+            {x = 3, y = 4},
+            {x = 2, y = 4},
+            {x = 1, y = 4},
+        }
+        
+        directionQueue = {'right'} -- the starting movement is right.
+        snakeAlive = true;
+        gui.score = 0;
+        timer = 0;
+        gui.timer = 0;
+        gameTimer = 0;
+        gui.score = 0; -- resetting the score  
+
+        moveFood();       
+    end
+
+    reset();
 end
 
 function love.update(dt)
